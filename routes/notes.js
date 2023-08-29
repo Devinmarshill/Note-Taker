@@ -8,7 +8,7 @@ const {
 
 // GET Route for retrieving all the notes
 notes.get('/', (req, res) => {
-  readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+  readFromFile('./routes/notes.js', utf-8).then((data) => res.json(JSON.parse(data)));
 });
 
 // GET Route for a specific note
@@ -34,7 +34,7 @@ notes.delete('/:note_id', (req, res) => {
       const result = json.filter((note) => note.note_id !== noteId);
 
       // Save that array to the filesystem
-      writeToFile('./db/notes.json', result);
+      writeToFile('./db/notes.js', result);
 
       // Respond to the DELETE request
       res.json(`Item ${noteId} has been deleted 🗑️`);
@@ -55,7 +55,7 @@ notes.post('/', (req, res) => {
       note_id: uuidv4(),
     };
 
-    readAndAppend(newnote, './db/notes.json');
+    readAndAppend(newnote, './routes/notes.js');
     res.json(`note added successfully`);
   } else {
     res.error('Error in adding note');
