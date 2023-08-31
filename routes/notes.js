@@ -7,22 +7,21 @@ const {
 } = require('../helpers/fsUtils');
 
 // GET Route for retrieving all the notes
+// http://localhost:3001/api/notes/
 notes.get('/', (req, res) => {
-  readFromFile('./routes/notes.js', utf-8).then((data) => res.json(JSON.parse(data)));
+  readFromFile('./routes/notes.js', utf8).then((data) => res.json(JSON.parse(data)));
 });
 
 // GET Route for a specific note
-notes.get('/:note_id', (req, res) => {
-  const noteId = req.params.note_id;
-  readFromFile('./db/db.json')
+
+  const noteId= readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
       const result = json.filter((note) => note.note_id === noteId);
       return result.length > 0
-        ? res.json(result)
-        : res.json('No note with that ID');
+         res.json(result);
+         res.json('No note with that ID');
     });
-});
 
 // DELETE Route for a specific note
 notes.delete('/:note_id', (req, res) => {
@@ -45,17 +44,16 @@ notes.delete('/:note_id', (req, res) => {
 notes.post('/', (req, res) => {
   console.log(req.body);
 
-  const { username, topic, note } = req.body;
+  const { title,text} = req.body;
 
   if (req.body) {
     const newnote = {
-      username,
-      note,
-      topic,
-      note_id: uuidv4(),
+      title,
+      text,
+      id: uuidv4(),
     };
 
-    readAndAppend(newnote, './routes/notes.js');
+    const parsedData= readAndAppend(newNote, './db/db.json');
     res.json(`note added successfully`);
   } else {
     res.error('Error in adding note');
