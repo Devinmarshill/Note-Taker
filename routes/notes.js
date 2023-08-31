@@ -14,11 +14,11 @@ notes.get('/', (req, res) => {
 
 // GET Route for a specific note
 
-  const noteId= readFromFile('./db/db.json')
+  const noteId=  readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
       const result = json.filter((note) => note.note_id === noteId);
-      return result.length > 0
+      return result.length > 0;
          res.json(result);
          res.json('No note with that ID');
     });
@@ -47,14 +47,14 @@ notes.post('/', (req, res) => {
   const { title,text} = req.body;
 
   if (req.body) {
-    const newnote = {
+    const newNote = {
       title,
       text,
       id: uuidv4(),
     };
 
     const parsedData= readAndAppend(newNote, './db/db.json');
-    res.json(`note added successfully`);
+    res.json(parsedData);
   } else {
     res.error('Error in adding note');
   }
