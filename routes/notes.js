@@ -9,7 +9,7 @@ const {
 // GET Route for retrieving all the notes
 // http://localhost:3001/api/notes/
 notes.get('/', (req, res) => {
-  readFromFile('./routes/notes.js', utf8).then((data) => res.json(JSON.parse(data)));
+  readFromFile('./db/db.json', "utf8").then((data) => res.json(JSON.parse(data)));
 });
 
 // GET Route for a specific note
